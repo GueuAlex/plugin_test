@@ -35,16 +35,20 @@ android {
 
     defaultConfig {
         minSdkVersion 19
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+        }
     }
 
     dependencies {
         implementation fileTree(dir: 'libs', include: ['*.jar'])
-        implementation fileTree(include: ['*.aar'], dir: 'libs')
-        //implementation files('libs/MorphoSmart_SDK_6.45.0.0.jar')
+        //implementation fileTree(include: ['*.aar'], dir: 'libs')
+        implementation files('libs/MorphoSmart_SDK_6.45.0.0.jar')
         //
         
         testImplementation 'junit:junit:4.13.2'
         testImplementation 'org.mockito:mockito-core:5.0.0'
+
 
     }
 

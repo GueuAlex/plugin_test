@@ -54,7 +54,7 @@ public class FamocoPlugin implements FlutterPlugin, MethodCallHandler {
 
   @Override
   public void onAttachedToEngine(@NonNull FlutterPluginBinding flutterPluginBinding) {
-    channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "famoco_plugin");
+    channel = new MethodChannel(flutterPluginBinding.getBinaryMessenger(), "famoco_fingerprint");
     channel.setMethodCallHandler(this);
   }
 
@@ -66,6 +66,7 @@ public class FamocoPlugin implements FlutterPlugin, MethodCallHandler {
         if (call.method.equals("captureFingerprint")) {
             mHandler = new Handler();
             MorphoDevice morphoDevice = new MorphoDevice();
+
             // Add the code snippet to capture the fingerprint here
             // Replace 'morphoDevice' with Famoco-specific objects
 
@@ -92,12 +93,9 @@ public class FamocoPlugin implements FlutterPlugin, MethodCallHandler {
 
                     int ret = morphoDevice.setStrategyAcquisitionMode(processInfo.getStrategyAcquisitionMode());
                     if (ret == ErrorCodes.MORPHO_OK) {
-                        Observer observer = new Observer() {
-                            @Override
-                            public void update(Observable o, Object arg) {
 
-                            }
-                        };
+                        final Observer observer = null;
+
                         ret = morphoDevice.capture(timeout, acquisitionThreshold, advancedSecurityLevelsRequired,
                                 NB_FINGER,
                                 TEMPLATE_TYPE, TEMPLATE_FVP_TYPE, MAX_SIZE_TEMPLATE, ENROLL_TYPE,
@@ -144,7 +142,7 @@ public class FamocoPlugin implements FlutterPlugin, MethodCallHandler {
     private String convertFingerprintDataToString(TemplateList templateList) {
         // Convert the fingerprint data to a string, format it as needed
         // Return the formatted fingerprint data as a string
-        return ""; // Modify this to return the actual data
+        return templateList.toString(); // Modify this to return the actual data
     }
 
   @Override
